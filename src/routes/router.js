@@ -23,6 +23,7 @@ function Routes() {
           />
 
         <Stack.Screen name="ListEmp" component={ListEmp} options={{...headerstyle,title:"Empresas"}}/>
+        
         <Stack.Screen name="EmpDetail" component={EmpDetail} options={{...headerstyle,title:"Empresa"}}/>
       </Stack.Navigator>
     </NavigationContainer>
