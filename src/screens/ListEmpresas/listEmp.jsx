@@ -25,6 +25,7 @@ export default function ListEmp({route}) {
         console.log("Erro ao buscar empresas:", error);
       }
     }
+    
 
     fetchEmpresas();
   }, []); // Executa apenas uma vez ao montar o componente

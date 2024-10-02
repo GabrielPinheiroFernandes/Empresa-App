@@ -21,6 +21,7 @@ function InputText(props){
                 onChangeText={(texto) => props.onChangeText(texto)}
                 value={Number.isInteger(props.value) ? String(props.value) : props.value} 
                 readOnly={props.readOnly}
+                
 
             />
           </View> 
