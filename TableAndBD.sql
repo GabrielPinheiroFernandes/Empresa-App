@@ -1,0 +1,118 @@
+-- --------------------------------------------------------
+-- Servidor:                     fn01
+-- Versão do servidor:           10.11.2-MariaDB - mariadb.org binary distribution
+-- OS do Servidor:               Win64
+-- HeidiSQL Versão:              12.3.0.6589
+-- --------------------------------------------------------
+
+/*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
+/*!40101 SET NAMES utf8 */;
+/*!50503 SET NAMES utf8mb4 */;
+/*!40103 SET @OLD_TIME_ZONE=@@TIME_ZONE */;
+/*!40103 SET TIME_ZONE='+00:00' */;
+/*!40014 SET @OLD_FOREIGN_KEY_CHECKS=@@FOREIGN_KEY_CHECKS, FOREIGN_KEY_CHECKS=0 */;
+/*!40101 SET @OLD_SQL_MODE=@@SQL_MODE, SQL_MODE='NO_AUTO_VALUE_ON_ZERO' */;
+/*!40111 SET @OLD_SQL_NOTES=@@SQL_NOTES, SQL_NOTES=0 */;
+
+
+-- Copiando estrutura do banco de dados para teste_grupo_mbs
+CREATE DATABASE IF NOT EXISTS `teste_grupo_mbs` /*!40100 DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_swedish_ci */;
+USE `teste_grupo_mbs`;
+
+-- Copiando estrutura para tabela teste_grupo_mbs.empresa
+CREATE TABLE IF NOT EXISTS `empresa` (
+  `ID` int(11) NOT NULL AUTO_INCREMENT,
+  `ID_RESPONSAVEL_SOCIO` int(11) NOT NULL,
+  `ID_MATRIZ` int(11) NOT NULL,
+  `ID_SINDICATO_PATRONAL` int(11) DEFAULT NULL,
+  `ID_FPAS` int(11) DEFAULT NULL,
+  `ID_CONTADOR` int(11) DEFAULT NULL,
+  `RAZAO_SOCIAL` varchar(150) DEFAULT NULL,
+  `NOME_FANTASIA` varchar(150) DEFAULT NULL,
+  `CNPJ` varchar(14) DEFAULT NULL,
+  `INSCRICAO_ESTADUAL` varchar(30) DEFAULT NULL,
+  `INSCRICAO_ESTADUAL_ST` varchar(30) DEFAULT NULL,
+  `INSCRICAO_MUNICIPAL` varchar(30) CHARACTER SET utf8mb3 COLLATE utf8mb3_bin DEFAULT NULL,
+  `INSCRICAO_JUNTA_COMERCIAL` varchar(30) DEFAULT NULL,
+  `DATA_INSC_JUNTA_COMERCIAL` date DEFAULT NULL,
+  `TIPO` char(1) DEFAULT NULL COMMENT 'Valores possíveis: M-Matriz | F-Filial | D=Depósito',
+  `DATA_CADASTRO` date DEFAULT NULL,
+  `DATA_INICIO_ATIVIDADES` date DEFAULT NULL,
+  `SUFRAMA` varchar(9) DEFAULT NULL,
+  `EMAIL` varchar(250) CHARACTER SET utf8mb3 COLLATE utf8mb3_bin DEFAULT NULL,
+  `IMAGEM_LOGOTIPO` varchar(2000) DEFAULT NULL,
+  `CRT` char(1) DEFAULT NULL COMMENT 'Código Regime Tributário [1=Simples Nacional | 2=Simples Nacional - excesso de sublimite da receita bruta  | 3=Regime Normal ',
+  `TIPO_REGIME` char(1) DEFAULT NULL COMMENT '1-Lucro REAL;2-Lucro presumido;3-Simples nacional;',
+  `ALIQUOTA_PIS` decimal(18,6) DEFAULT NULL COMMENT 'Aliquota do PIS padrao para a empresa',
+  `CONTATO` varchar(50) DEFAULT NULL COMMENT 'Aliquota padrao do Confins',
+  `ALIQUOTA_COFINS` decimal(18,6) DEFAULT NULL,
+  `CODIGO_IBGE_CIDADE` int(11) DEFAULT NULL,
+  `CODIGO_IBGE_UF` int(11) DEFAULT NULL,
+  `CODIGO_TERCEIROS` decimal(18,6) DEFAULT NULL COMMENT 'Codigo das contribuicoes para terceiros incidentes sobre a folha de pagamento (os terceiros sao SESI, SENAI, SEBRAE, INCRA, etc) esta tabela consta na IN 971/2009  da RFB',
+  `CODIGO_GPS` int(11) DEFAULT NULL COMMENT 'Codigo de pagamento da GPS, trata-se de tabale encontrada no site da Previdencia Social',
+  `ALIQUOTA_SAT` decimal(18,6) DEFAULT NULL COMMENT 'Aliquota do Seguro contra Acidente de trabalho incidente sobre a folha de pagametno dos empregados',
+  PRIMARY KEY (`ID`),
+  KEY `FK_CONTADOR_EMPRESA` (`ID_CONTADOR`),
+  KEY `FK_RESPONSAVEL_SOCIO_EMPRESA` (`ID_RESPONSAVEL_SOCIO`),
+  KEY `FK_FPAS_EMPRESA` (`ID_FPAS`),
+  KEY `FK_SINDICATO_EMPRESA` (`ID_SINDICATO_PATRONAL`),
+  KEY `FK_MATRIZ_EMPRESA` (`ID_MATRIZ`)
+) ENGINE=InnoDB AUTO_INCREMENT=40 DEFAULT CHARSET=utf8mb3 COLLATE=utf8mb3_swedish_ci PACK_KEYS=0 COMMENT='Tabela com as empresas que utilizam o sistema. ERP multi-empresa.';
+
+-- Copiando dados para a tabela teste_grupo_mbs.empresa: ~32 rows (aproximadamente)
+INSERT INTO `empresa` (`ID`, `ID_RESPONSAVEL_SOCIO`, `ID_MATRIZ`, `ID_SINDICATO_PATRONAL`, `ID_FPAS`, `ID_CONTADOR`, `RAZAO_SOCIAL`, `NOME_FANTASIA`, `CNPJ`, `INSCRICAO_ESTADUAL`, `INSCRICAO_ESTADUAL_ST`, `INSCRICAO_MUNICIPAL`, `INSCRICAO_JUNTA_COMERCIAL`, `DATA_INSC_JUNTA_COMERCIAL`, `TIPO`, `DATA_CADASTRO`, `DATA_INICIO_ATIVIDADES`, `SUFRAMA`, `EMAIL`, `IMAGEM_LOGOTIPO`, `CRT`, `TIPO_REGIME`, `ALIQUOTA_PIS`, `CONTATO`, `ALIQUOTA_COFINS`, `CODIGO_IBGE_CIDADE`, `CODIGO_IBGE_UF`, `CODIGO_TERCEIROS`, `CODIGO_GPS`, `ALIQUOTA_SAT`) VALUES
+	(1, 1, 1, 1, 1, 1, 'MBS RASTER LTDA', 'MBS RASTREAMENTO', '12345678000190', '12345678', NULL, NULL, '12345678', '2024-05-13', 'M', '2024-05-13', '2024-05-12', NULL, 'contato@mbsraster.com.br', NULL, '1', '3', NULL, '11987654321', NULL, NULL, NULL, NULL, NULL, NULL),
+	(2, 2, 1, 1, 1, 1, 'Tech Solutions LTDA', 'TechSol', '23456789000101', '23456789', NULL, NULL, '23456789', '2024-06-06', 'M', '2024-06-06', '2024-06-06', NULL, 'contato@techsol.com.br', NULL, '1', '3', NULL, '11987654322', NULL, NULL, NULL, NULL, NULL, NULL),
+	(3, 1, 1, NULL, NULL, NULL, 'MBS RASTER', 'MBS RASTREAMENTO', '12345678000190', NULL, NULL, NULL, NULL, '2024-05-13', 'M', '2024-05-13', '2024-05-12', NULL, NULL, NULL, '1', '3', NULL, '11987654321', NULL, NULL, NULL, NULL, NULL, NULL),
+	(4, 1, 1, NULL, NULL, NULL, 'Tech Solutions LTDA', 'TechSol', '12345678000190', NULL, NULL, NULL, NULL, '2024-06-06', 'M', '2024-06-06', '2024-06-06', NULL, 'contato@techsol.com.br', NULL, '1', '3', NULL, '11987654321', NULL, NULL, NULL, NULL, NULL, NULL),
+	(5, 1, 1, NULL, NULL, NULL, 'Inova Tecnologia', 'InovaTec', '98765432000145', NULL, NULL, NULL, NULL, '2024-07-01', 'M', '2024-07-01', '2024-07-01', NULL, 'contato@inovatec.com.br', NULL, '1', '3', NULL, '11987654322', NULL, NULL, NULL, NULL, NULL, NULL),
+	(6, 1, 1, NULL, NULL, NULL, 'Global Trade', 'GlobalT', '12398765432100', NULL, NULL, NULL, NULL, '2024-07-10', 'M', '2024-07-10', '2024-07-10', NULL, 'contato@globaltrade.com', NULL, '1', '3', NULL, '11987654323', NULL, NULL, NULL, NULL, NULL, NULL),
+	(7, 1, 1, NULL, NULL, NULL, 'Construtora ABC', 'Construtora ABC', '32165498700011', NULL, NULL, NULL, NULL, '2024-08-01', 'M', '2024-08-01', '2024-08-01', NULL, 'contato@construtoraabc.com.br', NULL, '1', '3', NULL, '11987654324', NULL, NULL, NULL, NULL, NULL, NULL),
+	(8, 1, 1, NULL, NULL, NULL, 'Agropecuária São Jorge', 'Agro São Jorge', '65432178900023', NULL, NULL, NULL, NULL, '2024-08-15', 'M', '2024-08-15', '2024-08-15', NULL, 'contato@agrosaojorge.com.br', NULL, '1', '3', NULL, '11987654325', NULL, NULL, NULL, NULL, NULL, NULL),
+	(9, 1, 1, NULL, NULL, NULL, 'Educação Integral', 'EduIntegral', '98712345600033', NULL, NULL, NULL, NULL, '2024-09-05', 'M', '2024-09-05', '2024-09-05', NULL, 'contato@eduintegral.com.br', NULL, '1', '3', NULL, '11987654326', NULL, NULL, NULL, NULL, NULL, NULL),
+	(10, 1, 1, NULL, NULL, NULL, 'Consultoria Financeira', 'FinanConsult', '32198765400044', NULL, NULL, NULL, NULL, '2024-09-10', 'M', '2024-09-10', '2024-09-10', NULL, 'contato@financonsult.com.br', NULL, '1', '3', NULL, '11987654327', NULL, NULL, NULL, NULL, NULL, NULL),
+	(11, 1, 1, NULL, NULL, NULL, 'Marketing Digital', 'MktDigital', '12345678900055', NULL, NULL, NULL, NULL, '2024-09-20', 'M', '2024-09-20', '2024-09-20', NULL, 'contato@mktdigital.com.br', NULL, '1', '3', NULL, '11987654328', NULL, NULL, NULL, NULL, NULL, NULL),
+	(12, 1, 1, NULL, NULL, NULL, 'Logística Moderna', 'LogisticaMod', '98765432100066', NULL, NULL, NULL, NULL, '2024-09-25', 'M', '2024-09-25', '2024-09-25', NULL, 'contato@logisticamod.com.br', NULL, '1', '3', NULL, '11987654329', NULL, NULL, NULL, NULL, NULL, NULL),
+	(15, 1, 1, 1, 1, 1, 'MBS RASTER LTDA', 'MBS RASTREAMENTO', '12345678000190', '12345678', NULL, '12345678', '12345678', '2024-05-13', 'M', '2024-05-13', '2024-05-12', NULL, 'contato@mbsraster.com.br', NULL, '1', '3', NULL, '11987654321', NULL, NULL, NULL, NULL, NULL, NULL),
+	(16, 1, 1, 1, 1, 1, 'MBS RASTER LTDA', 'MBS RASTREAMENTO', '12345678000190', '12345678', NULL, '12345678', '12345678', '2024-05-13', 'M', '2024-05-13', '2024-05-12', NULL, 'contato@mbsraster.com.br', NULL, '1', '3', NULL, '11987654321', NULL, NULL, NULL, NULL, NULL, NULL),
+	(17, 1, 1, 1, 1, 1, 'MBS RASTER LTDA', 'MBS RASTREAMENTO', '12345678000190', '12345678', NULL, '12345678', '12345678', '2024-05-13', 'M', '2024-05-13', '2024-05-12', NULL, 'contato@mbsraster.com.br', NULL, '1', '3', NULL, '11987654321', NULL, NULL, NULL, NULL, NULL, NULL),
+	(18, 1, 1, 1, 1, 1, 'MBS RASTER LTDA', 'MBS RASTREAMENTO', '12345678000190', '12345678', NULL, '12345678', '12345678', '2024-05-13', 'M', '2024-05-13', '2024-05-12', NULL, 'contato@mbsraster.com.br', NULL, '1', '3', NULL, '11987654321', NULL, NULL, NULL, NULL, NULL, NULL),
+	(19, 1, 1, 1, 1, 1, 'MBS RASTER LTDA', 'MBS RASTREAMENTO', '12345678000190', '12345678', NULL, '12345678', '12345678', '2024-05-13', 'M', '2024-05-13', '2024-05-12', NULL, 'contato@mbsraster.com.br', NULL, '1', '3', NULL, '11987654321', NULL, NULL, NULL, NULL, NULL, NULL),
+	(20, 1, 1, 1, 1, 1, 'MBS RASTER LTDA', 'MBS RASTREAMENTO', '12345678000190', '12345678', NULL, '12345678', '12345678', '2024-05-13', 'M', '2024-05-13', '2024-05-12', NULL, 'contato@mbsraster.com.br', NULL, '1', '3', NULL, '11987654321', NULL, NULL, NULL, NULL, NULL, NULL),
+	(26, 1, 1, 1, 1, 1, 'MBS RASTER LTDA', 'MBS RASTREAMENTO', '12345678000190', '12345678', NULL, '12345678', '12345678', '2024-05-13', 'M', '2024-05-13', '2024-05-12', NULL, 'contato@mbsraster.com.br', NULL, '1', '3', NULL, '11987654321', NULL, NULL, NULL, NULL, NULL, NULL),
+	(27, 1, 1, 1, 1, 1, 'MBS RASTER LTDA', 'MBS RASTREAMENTO', '12345678000190', '12345678', NULL, '12345678', '12345678', '2024-05-13', 'M', '2024-05-13', '2024-05-12', NULL, 'contato@mbsraster.com.br', NULL, '1', '3', NULL, '11987654321', NULL, NULL, NULL, NULL, NULL, NULL),
+	(28, 1, 1, 1, 1, 1, 'MBS RASTER LTDA', 'MBS RASTREAMENTO', '12345678000190', '12345678', NULL, '12345678', '12345678', '2024-05-13', 'M', '2024-05-13', '2024-05-12', NULL, 'contato@mbsraster.com.br', NULL, '1', '3', NULL, '11987654321', NULL, NULL, NULL, NULL, NULL, NULL),
+	(29, 1, 1, 1, 1, 1, 'MBS RASTER LTDA', 'MBS RASTREAMENTO', '12345678000190', '12345678', NULL, '12345678', '12345678', '2024-05-13', 'M', '2024-05-13', '2024-05-12', NULL, 'contato@mbsraster.com.br', NULL, '1', '3', NULL, '11987654321', NULL, NULL, NULL, NULL, NULL, NULL),
+	(30, 1, 1, 1, 1, 1, 'MBS RASTER LTDA', 'MBS RASTREAMENTO', '12345678000190', '12345678', NULL, '12345678', '12345678', '2024-05-13', 'M', '2024-05-13', '2024-05-12', NULL, 'contato@mbsraster.com.br', NULL, '1', '3', NULL, '11987654321', NULL, NULL, NULL, NULL, NULL, NULL),
+	(31, 1, 1, 1, 1, 1, 'MBS RASTER LTDA', 'MBS RASTREAMENTO', '12345678000190', '12345678', NULL, '12345678', '12345678', '2024-05-13', 'M', '2024-05-13', '2024-05-12', NULL, 'contato@mbsraster.com.br', NULL, '1', '3', NULL, '11987654321', NULL, NULL, NULL, NULL, NULL, NULL),
+	(32, 1, 1, 1, 1, 1, 'MBS RASTER LTDA', 'MBS RASTREAMENTO', '12345678000190', '12345678', NULL, '12345678', '12345678', '2024-05-13', 'M', '2024-05-13', '2024-05-12', NULL, 'contato@mbsraster.com.br', NULL, '1', '3', NULL, '11987654321', NULL, NULL, NULL, NULL, NULL, NULL),
+	(33, 1, 1, 1, 1, 1, 'MBS RASTER LTDA', 'MBS RASTREAMENTO', '12345678000190', '12345678', NULL, '12345678', '12345678', '2024-05-13', 'M', '2024-05-13', '2024-05-12', NULL, 'contato@mbsraster.com.br', NULL, '1', '3', NULL, '11987654321', NULL, NULL, NULL, NULL, NULL, NULL),
+	(34, 1, 1, 1, 1, 1, 'MBS RASTER LTDA', 'MBS RASTREAMENTO', '12345678000190', '12345678', NULL, '12345678', '12345678', '2024-05-13', 'M', '2024-05-13', '2024-05-12', NULL, 'contato@mbsraster.com.br', NULL, '1', '3', NULL, '11987654321', NULL, NULL, NULL, NULL, NULL, NULL),
+	(35, 1, 1, 1, 1, 1, 'MBS RASTER LTDA', 'MBS RASTREAMENTO', '12345678000190', '12345678', NULL, '12345678', '12345678', '2024-05-13', 'M', '2024-05-13', '2024-05-12', NULL, 'contato@mbsraster.com.br', NULL, '1', '3', NULL, '11987654321', NULL, NULL, NULL, NULL, NULL, NULL),
+	(36, 1, 1, 1, 1, 1, 'MBS RASTER LTDA', 'MBS RASTREAMENTO', '12345678000190', '12345678', NULL, '12345678', '12345678', '2024-05-13', 'M', '2024-05-13', '2024-05-12', NULL, 'contato@mbsraster.com.br', NULL, '1', '3', NULL, '11987654321', NULL, NULL, NULL, NULL, NULL, NULL),
+	(37, 1, 1, 1, 1, 1, 'MBS RASTER LTDA', 'MBS RASTREAMENTO', '12345678000190', '12345678', NULL, '12345678', '12345678', '2024-05-13', 'M', '2024-05-13', '2024-05-12', NULL, 'contato@mbsraster.com.br', NULL, '1', '3', NULL, '11987654321', NULL, NULL, NULL, NULL, NULL, NULL),
+	(38, 213, 2, 2, 2, 2, 'Ricardo Tecnologias 33', 'RicardoTecno', '12313213987921', '353543', '4534534', '453', '4534354343', '2024-10-01', 'M', '2024-10-01', '2024-10-01', '123213', 'marcioTec@hotmailcom', 'lockdaaws', '1', '3', 32123312.000000, '12313123213', 123112313123.000000, 1231323, 123, 2312313.000000, 123, 123131312.000000),
+	(39, 1, 1, 1, 1, 1, 'JoãoTech', 'Jão do frilas', '97924574000199', '654321987', '123456789012', '9876543210', '1234567890', '2024-10-02', 'M', '2024-10-02', '2024-10-02', '456789123', 'contato@jaodofrilas.com', 'https://example.com/logotipos/joao_do_frilas.png', '1', '1', 165.000000, '11987654321', NULL, 1234567, 12, 890123456.000000, 234567, NULL);
+
+-- Copiando estrutura para tabela teste_grupo_mbs.usuario
+CREATE TABLE IF NOT EXISTS `usuario` (
+  `ID` int(11) NOT NULL AUTO_INCREMENT,
+  `ID_COLABORADOR` int(11) NOT NULL,
+  `LOGIN` varchar(20) DEFAULT NULL,
+  `SENHA` varchar(40) DEFAULT NULL,
+  `DATA_CADASTRO` date DEFAULT NULL,
+  `ADMINISTRADOR` char(1) DEFAULT NULL,
+  PRIMARY KEY (`ID`),
+  KEY `FK_COLABORADOR_USUARIO` (`ID_COLABORADOR`)
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8mb3 COLLATE=utf8mb3_swedish_ci PACK_KEYS=0 COMMENT='Tabela com os usuarios do sistema';
+
+-- Copiando dados para a tabela teste_grupo_mbs.usuario: ~2 rows (aproximadamente)
+INSERT INTO `usuario` (`ID`, `ID_COLABORADOR`, `LOGIN`, `SENHA`, `DATA_CADASTRO`, `ADMINISTRADOR`) VALUES
+	(1, 1, 'ADMIN', '123', '2024-05-13', 'S'),
+	(2, 1, 'XESQUEDALEN', '@!)#(IO@{!`#!@_$)I!@)($', '2024-06-21', 'S');
+
+/*!40103 SET TIME_ZONE=IFNULL(@OLD_TIME_ZONE, 'system') */;
+/*!40101 SET SQL_MODE=IFNULL(@OLD_SQL_MODE, '') */;
+/*!40014 SET FOREIGN_KEY_CHECKS=IFNULL(@OLD_FOREIGN_KEY_CHECKS, 1) */;
+/*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
+/*!40111 SET SQL_NOTES=IFNULL(@OLD_SQL_NOTES, 1) */;
