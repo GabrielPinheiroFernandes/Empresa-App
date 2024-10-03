@@ -6,7 +6,11 @@ export const color = {
   "complement": "#F0F0F0",
   "black" : "#000000",
   "placeholder" : "#B0B0B0",
-  "darkgreen" : "#043D04"
+  "darkgreen" : "#043D04",
+  //btnPesq
+  "whitegreen" : "#DCFCDC",
+  "graygreen": "#CBDACA",
+  "borderdarkgreen" : "#6B796A"
 }
 export const fontSize = {
   "small": 12,      // Tamanho pequeno

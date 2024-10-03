@@ -5,6 +5,7 @@ import empresa from '../../api/empresa';
 import CardEmp from '../../components/cardEmp/cardEmp';
 import { style } from './listEmp.style';
 import { useNavigation } from "@react-navigation/native"
+import Loading from '../../components/Loading/Loading';
 
 export default function ListEmp({route}) {
   const navigator = useNavigation();
@@ -32,7 +33,9 @@ export default function ListEmp({route}) {
 
   
   return (
+    
       <View style={style.container}>
+
       <FlatList
         data={itens} // Dados a serem renderizados
         style={style.flatList}
