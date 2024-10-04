@@ -9,4 +9,5 @@ export const headerstyle = {
     headerTitleStyle: {
     fontWeight: 'bold',         // Título em negrito
     },
+    
 }
