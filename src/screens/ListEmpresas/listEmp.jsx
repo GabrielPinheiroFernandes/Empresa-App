@@ -1,18 +1,19 @@
-import { StatusBar } from 'expo-status-bar';
-import { FlatList, View } from 'react-native';
-import { useEffect, useState } from 'react';
-import empresa from '../../api/empresa';
-import CardEmp from '../../components/cardEmp/cardEmp';
-import { style } from './listEmp.style';
-import { useNavigation } from "@react-navigation/native"
-import Loading from '../../components/Loading/Loading';
+import { StatusBar } from "expo-status-bar";
+import { FlatList, View } from "react-native";
+import { useEffect, useState } from "react";
+import empresa from "../../api/empresa";
+import CardEmp from "../../components/cardEmp/cardEmp";
+import { style } from "./listEmp.style";
+import { useNavigation } from "@react-navigation/native";
+import Loading from "../../components/Loading/Loading";
 
-export default function ListEmp({route}) {
+export default function ListEmp({ route }) {
   const navigator = useNavigation();
 
   // console.log(route.params)
   // const authtoken = route.params.token
-  const authtoken = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZF91c3VhcmlvIjoxLCJpYXQiOjE3Mjc3ODM3NTksImV4cCI6MTcyODc4Mzc1OH0.J0Ak8YJbzNpUuQ5eDQEnD2AsWeQCxOB9vy9UfSsMxuM'
+  const authtoken =
+    "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZF91c3VhcmlvIjoxLCJpYXQiOjE3Mjc3ODM3NTksImV4cCI6MTcyODc4Mzc1OH0.J0Ak8YJbzNpUuQ5eDQEnD2AsWeQCxOB9vy9UfSsMxuM";
   // console.log(authtoken)
   const [itens, setItens] = useState([]); // Corrigido o useState
 
@@ -26,23 +27,28 @@ export default function ListEmp({route}) {
         console.log("Erro ao buscar empresas:", error);
       }
     }
-    
 
     fetchEmpresas();
   }, []); // Executa apenas uma vez ao montar o componente
 
-  
   return (
-    
-      <View style={style.container}>
-
+    <View style={style.container}>
       <FlatList
         data={itens} // Dados a serem renderizados
         style={style.flatList}
         keyExtractor={(item, index) => index.toString()} // Garante uma key única
-        renderItem={({ item }) => <CardEmp data={item} OnPress={()=>{
-          navigator.navigate('EmpDetail',{id_empresa:item.ID,title:item.RAZAO_SOCIAL,Token:authtoken})
-        }}/>}
+        renderItem={({ item }) => (
+          <CardEmp
+            data={item}
+            OnPress={() => {
+              navigator.navigate("EmpDetail", {
+                id_empresa: item.ID,
+                title: item.RAZAO_SOCIAL,
+                Token: authtoken,
+              });
+            }}
+          />
+        )}
         ItemSeparatorComponent={() => <View style={{ height: 10 }} />} // Define um espaço de 10px entre os itens
       />
       <StatusBar style="auto" />

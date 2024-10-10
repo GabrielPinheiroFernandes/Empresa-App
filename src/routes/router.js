@@ -13,13 +13,29 @@ const Stack = createStackNavigator();
 function Routes() {
   return (
     <NavigationContainer>
-      <Stack.Navigator initialRouteName="ListEmp">
-        <Stack.Screen name="Home" component={Home} options={{headerShown:false}} />
+      <Stack.Navigator initialRouteName="Blank">
+        <Stack.Screen
+          name="Home"
+          component={Home}
+          options={{ headerShown: false }}
+        />
 
-        <Stack.Screen name="ListEmp" component={ListEmp} options={{...headerstyle,title:"Empresas"}}/>
-        
-        <Stack.Screen name="EmpDetail" component={EmpDetail} options={{...headerstyle,title:"Empresa"}}/>
-        <Stack.Screen name="Blank" component={Blank} options={{...headerstyle,title:"Testes"}}/>
+        <Stack.Screen
+          name="ListEmp"
+          component={ListEmp}
+          options={{ ...headerstyle, title: "Empresas" }}
+        />
+
+        <Stack.Screen
+          name="EmpDetail"
+          component={EmpDetail}
+          options={{ ...headerstyle, title: "Empresa" }}
+        />
+        <Stack.Screen
+          name="Blank"
+          component={Blank}
+          options={{ ...headerstyle, title: "Testes" }}
+        />
       </Stack.Navigator>
     </NavigationContainer>
   );

@@ -4,7 +4,7 @@ import { color } from "../../constants/theme"
 
 function InputText(props){
 
-    return <View style={style.container}>
+    return <View style={[style.container,props.style]}>
         {props.label && <Text style={style.label}>{props.label}</Text>}
         {/* Se a props Image for passada transforma o component para que a imagem seja alocada na esquerda */}
         {props.image 
